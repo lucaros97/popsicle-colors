@@ -1,0 +1,125 @@
+// Using "Oceanic Next" as a base
+
+$palette: (
+red: #FF5630,
+orange: #FFAB00,
+yellow: #FAC863,
+green: #36B37E,
+teal: #00B8D9,
+blue: #0065FF,
+purple: #6554C0,
+dark: #172B4D,
+light: #FFF,
+);
+
+// Set some variables
+
+$page-background: #1b2b34;
+
+$mix-with: #1b2b34;
+$mix-amount: 55%;
+
+$saturate-amount: 15%;
+
+// Let's do color math!
+
+@each $color, $color-value in $palette {
+	.#{$color} {
+		background: $color-value;
+
+		&, &:before {
+			color: saturate(mix($color-value, $mix-with, $mix-amount), $saturate-amount);
+		}
+
+		&:after {
+			content: '#{$color}';
+		}
+	}
+}
+
+.dark {
+	color: #fff;
+}
+
+body {
+	background: $page-background;
+	font-family: "Input Mono", "Input", "Menlo", monospace;
+	font-weight: 400;
+}
+
+.title {
+	color: #fff;
+	display: flex;
+	align-items: center;
+}
+
+.row {
+	clear: both;
+
+	.col {
+		text-align: center;
+		margin: 4rem 0;
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:before, &:after {
+			display: block;
+			padding: 5rem;
+		}
+
+		&:before {
+			background: $page-background;
+			overflow: hidden;
+		}
+	}
+}
+
+.footer {
+	position: absolute;
+  bottom: 0;
+  padding: 35px;
+  width: 100%;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%);
+}
+
+@media only screen and (max-width: 992px) {
+	.row .col {
+		margin: 1rem 0;
+	}
+
+	.github {
+		justify-content: center !important;
+		& .btn {
+			display: block;
+			width: 100%;
+		}
+	}
+
+	.footer {
+		position: relative;
+	}
+}
+
+
+.message-flag {
+	bottom: 48px;
+	left: 80px;
+	position: fixed;
+	z-index: 600;
+	width: 400px;
+	transition: transform 0.4s ease-in-out;
+	& .message {
+		background-color: rgb(255, 255, 255);
+		box-sizing: border-box;
+		box-shadow: rgba(9, 30, 66, 0.31) 0px 0px 1px, rgba(9, 30, 66, 0.25) 0px 20px 32px -8px;
+		color: rgb(66, 82, 110);
+		width: 100%;
+		z-index: 600;
+		border-radius: 3px;
+		padding: 16px;
+		transition: background-color 200ms;
+	}
+}
